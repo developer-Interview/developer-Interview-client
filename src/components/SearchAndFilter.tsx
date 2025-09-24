@@ -11,7 +11,7 @@ interface SearchAndFilterProps {
   setSelectedCategory: (category: string) => void;
 }
 
-const categories = ['All', 'Backend', 'Frontend', 'System Design', 'Data Structures', 'Database'];
+const categories = ['All', 'Backend', 'Frontend'];
 
 const SearchAndFilter = ({ 
   searchQuery, 
@@ -42,21 +42,27 @@ const SearchAndFilter = ({
         )}
       </div>
 
-      {/* Category Filter */}
-      <div className="flex flex-wrap gap-2">
+      {/* Category Filter - Large Tab Style */}
+      <div className="grid grid-cols-3 gap-1 p-1 bg-muted/30 rounded-xl">
         {categories.map((category) => (
-          <Badge
+          <Button
             key={category}
-            variant={selectedCategory === category ? "default" : "outline"}
-            className={`cursor-pointer transition-all duration-200 ${
+            variant={selectedCategory === category ? "default" : "ghost"}
+            size="lg"
+            className={`relative h-14 text-base font-semibold transition-all duration-300 ${
               selectedCategory === category 
-                ? "bg-primary text-primary-foreground hover:bg-primary/90" 
-                : "hover:bg-primary/20 hover:text-primary hover:border-primary/50"
+                ? "bg-primary text-primary-foreground shadow-lg scale-[1.02]" 
+                : "hover:bg-primary/10 hover:text-primary"
             }`}
             onClick={() => setSelectedCategory(category)}
           >
-            {category === 'All' ? '전체' : category}
-          </Badge>
+            <span className="relative z-10">
+              {category === 'All' ? '전체' : category}
+            </span>
+            {selectedCategory === category && (
+              <div className="absolute inset-0 bg-gradient-primary rounded-md opacity-90" />
+            )}
+          </Button>
         ))}
       </div>
     </div>
